@@ -162,132 +162,22 @@ class ProfilePage extends React.Component {
   }
 
   renderContent() {
-    const {
-      profileImage,
-      name,
-      visibilityName,
-      country,
-      visibilityCountry,
-      levelOfEducation,
-      visibilityLevelOfEducation,
-      socialLinks,
-      draftSocialLinksByPlatform,
-      visibilitySocialLinks,
-      learningGoal,
-      visibilityLearningGoal,
-      languageProficiencies,
-      visibilityLanguageProficiencies,
-      courseCertificates,
-      visibilityCourseCertificates,
-      bio,
-      visibilityBio,
-      requiresParentalConsent,
-      isLoadingProfile,
-    } = this.props;
+  const { isLoadingProfile } = this.props;
 
-    if (isLoadingProfile) {
-      return <PageLoading srMessage={this.props.intl.formatMessage(messages['profile.loading'])} />;
-    }
+  if (isLoadingProfile) {
+    return <PageLoading srMessage="Загрузка..." />;
+  }
 
-    const commonFormProps = {
-      openHandler: this.handleOpen,
-      closeHandler: this.handleClose,
-      submitHandler: this.handleSubmit,
-      changeHandler: this.handleChange,
-    };
-
-    const isBlockVisible = (blockInfo) => this.isAuthenticatedUserProfile()
-      || (!this.isAuthenticatedUserProfile() && Boolean(blockInfo));
-
-    const isLanguageBlockVisible = isBlockVisible(languageProficiencies.length);
-    const isEducationBlockVisible = isBlockVisible(levelOfEducation);
-    const isSocialLinksBLockVisible = isBlockVisible(socialLinks.some((link) => link.socialLink !== null));
-    const isBioBlockVisible = isBlockVisible(bio);
-    const isCertificatesBlockVisible = isBlockVisible(courseCertificates.length);
-    const isNameBlockVisible = isBlockVisible(name);
-    const isLocationBlockVisible = isBlockVisible(country);
-
-    return (
-      <div className="container-fluid">
-        <div className="row align-items-center pt-4 mb-4 pt-md-0 mb-md-0">
-          <div className="col-auto col-md-4 col-lg-3">
-            <div className="d-flex align-items-center d-md-block">
-              <ProfileAvatar
-                className="mb-md-3"
-                src={profileImage.src}
-                isDefault={profileImage.isDefault}
-                onSave={this.handleSaveProfilePhoto}
-                onDelete={this.handleDeleteProfilePhoto}
-                savePhotoState={this.props.savePhotoState}
-                isEditable={this.isAuthenticatedUserProfile() && !requiresParentalConsent}
-              />
-            </div>
-          </div>
-          <div className="col">
-            <div className="d-md-none">
-              {this.renderHeadingLockup()}
-            </div>
-            <div className="d-none d-md-block float-right">
-              {this.renderViewMyRecordsButton()}
-            </div>
-          </div>
-        </div>
-        {this.renderPhotoUploadErrorMessage()}
-        <div className="row" style={{ minHeight: '50vh' }}>
-          <div className="col-md-4 col-lg-4">
-            <div className="d-none d-md-block mb-4">
-              {this.renderHeadingLockup()}
-            </div>
-            <div className="d-md-none mb-4">
-              {this.renderViewMyRecordsButton()}
-            </div>
-            {isNameBlockVisible && (
-              <Name
-                name={name}
-                visibilityName={visibilityName}
-                formId="name"
-                {...commonFormProps}
-              />
-            )}
-            {isLocationBlockVisible && (
-              <Country
-                country={country}
-                visibilityCountry={visibilityCountry}
-                formId="country"
-                {...commonFormProps}
-              />
-            )}
-            {isLanguageBlockVisible && (
-              <PreferredLanguage
-                languageProficiencies={languageProficiencies}
-                visibilityLanguageProficiencies={visibilityLanguageProficiencies}
-                formId="languageProficiencies"
-                {...commonFormProps}
-              />
-            )}
-            {isEducationBlockVisible && (
-              <Education
-                levelOfEducation={levelOfEducation}
-                visibilityLevelOfEducation={visibilityLevelOfEducation}
-                formId="levelOfEducation"
-                {...commonFormProps}
-              />
-            )}
-            {isSocialLinksBLockVisible && (
-              <SocialLinks
-                socialLinks={socialLinks}
-                draftSocialLinksByPlatform={draftSocialLinksByPlatform}
-                visibilitySocialLinks={visibilitySocialLinks}
-                formId="socialLinks"
-                {...commonFormProps}
-              />
-            )}
-          </div>
-          
+  return (
+    <div className="container-fluid">
+      <div className="row align-items-center justify-content-center" style={{ minHeight: '50vh' }}>
+        <div className="col-12 text-center">
+          <h2>В разработке</h2>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+}
 
   render() {
     return (
