@@ -39,11 +39,9 @@ subscribe(APP_READY, () => {
   ReactDOM.render(
     <AppProvider store={store}>
       <Head />
-      <Header />
       <main id="main">
         {config.ENABLE_SKILLS_BUILDER_PROFILE === 'true' ? <AppRoutes /> : <InProgressMessage />}
       </main>
-      <FooterSlot />
     </AppProvider>,
     document.getElementById('root'),
   );
