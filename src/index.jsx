@@ -1,39 +1,47 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-
 import {
   APP_INIT_ERROR,
   APP_READY,
   initialize,
   mergeConfig,
   subscribe,
+  getConfig,
 } from '@edx/frontend-platform';
 import {
   AppProvider,
   ErrorPage,
 } from '@edx/frontend-platform/react';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import Header from '@edx/frontend-component-header';
 import FooterSlot from '@openedx/frontend-slot-footer';
-
 import messages from './i18n';
 import configureStore from './data/configureStore';
-
 import './index.scss';
 import Head from './head/Head';
 
-import AppRoutes from './routes/AppRoutes';
+// Компонент для отображения "В разработке"
+const InProgressMessage = () => (
+  <div className="container-fluid">
+    <div className="row align-items-center justify-content-center" style={{ minHeight: '50vh' }}>
+      <div className="col-12 text-center">
+        <h2>В разработке</h2>
+      </div>
+    </div>
+  </div>
+);
 
 subscribe(APP_READY, () => {
+  const store = configureStore();
+  const config = getConfig();
+
   ReactDOM.render(
-    <AppProvider store={configureStore()}>
+    <AppProvider store={store}>
       <Head />
       <Header />
       <main id="main">
-        <AppRoutes />
+        {config.ENABLE_SKILLS_BUILDER_PROFILE === 'true' ? <AppRoutes /> : <InProgressMessage />}
       </main>
       <FooterSlot />
     </AppProvider>,
